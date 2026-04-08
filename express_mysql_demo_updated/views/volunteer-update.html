@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Volunteer - VolunteerHub</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/dashboard" class="logo">VolunteerHub</a>
+            <ul class="nav-links">
+                <li><a href="/volunteer-list.html">📋 View All Volunteers</a></li>
+                <li><a href="/volunteer-register.html">➕ Register New</a></li>
+                <li><a href="/volunteer-search.html">🔍 Search</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <div class="card">
+            <h1>Edit Volunteer</h1>
+            <form id="editForm">
+                <input type="hidden" name="id" id="id">
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" name="firstname" id="firstname" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" name="lastname" id="lastname" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" name="phone" id="phone" required>
+                </div>
+                <button type="submit" class="btn">Update Volunteer</button>
+            </form>
+            <a href="/volunteer-list.html" class="btn btn-secondary" style="margin-top: 1rem; display: inline-block;">Back to List</a>
+        </div>
+    </main>
+
+    <script>
+        async function loadVolunteer() {
+            const path = window.location.pathname;
+            const id = path.split('/').pop();
+            if (!id || isNaN(id)) {
+                alert('Invalid volunteer ID');
+                return;
+            }
+
+            try {
+                const res = await fetch(`/volunteer/${id}`);
+                if (!res.ok) throw new Error('Volunteer not found');
+                const volunteer = await res.json();
+
+                document.getElementById('id').value = id;
+                document.getElementById('firstname').value = volunteer.firstname || '';
+                document.getElementById('lastname').value = volunteer.lastname || '';
+                document.getElementById('email').value = volunteer.email || '';
+                document.getElementById('phone').value = volunteer.phone || '';
+            } catch (err) {
+                console.error('Load error:', err);
+                alert('Volunteer not found or error loading data');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadVolunteer);
+
+        document.getElementById('editForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const id = formData.get('id');
+            const data = Object.fromEntries(formData);
+
+            try {
+                const res = await fetch(`/volunteer/update/${id}`, {
+                    method: 'POST',
+                    body: new URLSearchParams(data)
+                });
+                if (res.ok) {
+                    alert('Volunteer updated!');
+                    window.location.href = '/volunteer-list.html';
+                } else {
+                    alert('Update failed');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Update error');
+            }
+        });
+    </script>
+</body>
+</html>

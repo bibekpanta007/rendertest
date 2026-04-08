@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - VolunteerHub</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main class="container">
+        <div class="card">
+<h1>Login</h1>
+            <div id="errorMsg" class="error hidden"></div>
+            <form method="POST" action="/login">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;"><a href="/register" style="color: #667eea;">Create new account</a></p>
+        </div>
+    </main>
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('error')) {
+  const msgMap = {
+    missingFields: 'Username and password are required.',
+    userNotFound: 'User not found. Please check spelling or register.',
+    invalidPassword: 'Invalid password.',
+    serverError: 'Server error. Please try again.'
+  };
+  const errorDiv = document.getElementById('errorMsg');
+  const errorKey = urlParams.get('error');
+  errorDiv.textContent = msgMap[errorKey] || 'Login failed.';
+  errorDiv.classList.remove('hidden');
+  setTimeout(() => errorDiv.classList.add('hidden'), 5000);
+}
+</script>
+<style>
+.error {
+  color: #dc3545;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.hidden {
+  display: none;
+}
+</style>
+</body>
+</html>
+

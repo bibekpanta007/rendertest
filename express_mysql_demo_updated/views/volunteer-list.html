@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Volunteers - VolunteerHub</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/dashboard" class="logo">VolunteerHub</a>
+            <ul class="nav-links">
+                <li><a href="/volunteer-list.html">Volunteers</a></li>
+                
+                <li><a href="/volunteer-register.html">Register</a></li>
+                <li><a href="/volunteer-search.html">Search</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h1>All Volunteers</h1>
+                <button id="refreshBtn" class="btn" style="width: auto;">🔄 Refresh</button>
+            </div>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="volunteerTable">
+                    <tr><td colspan="6">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <a href="/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </main>
+
+    <script src="/volunteer-list.js"></script>
+</body>
+</html>

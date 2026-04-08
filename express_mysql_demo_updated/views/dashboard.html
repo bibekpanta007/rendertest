@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Volunteer System</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/dashboard" class="logo">VolunteerHub</a>
+            <ul class="nav-links">
+<li><a href="/volunteer-list.html">📋 View All Volunteers</a></li>
+                <li><a href="/volunteer-register.html">➕ Register Volunteer</a></li>
+                <li><a href="/volunteer-search.html">🔍 Search Volunteers</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <div class="card">
+            <h1>Dashboard</h1>
+            <p>Welcome to Volunteer Management System!</p>
+            
+            <div class="card">
+                <h3>Quick Actions</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+<a href="/volunteer-list.html" class="btn">📋 View All Volunteers</a>
+                    <a href="/volunteer-register.html" class="btn">➕ Register New</a>
+                    <a href="/volunteer-search.html" class="btn">🔍 Search Volunteers</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

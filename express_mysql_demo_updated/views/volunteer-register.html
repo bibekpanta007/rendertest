@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Volunteer - VolunteerHub</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/dashboard" class="logo">VolunteerHub</a>
+            <ul class="nav-links">
+                <li><a href="/volunteers">Volunteers</a></li>
+                <li><a href="/volunteer-register.html">Register Volunteer</a></li>
+                <li><a href="/volunteer-search.html">Search</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <div class="card">
+            <h1>Register New Volunteer</h1>
+            <div id="errorMsg" class="alert-error" style="display: none; background: #fee2e2; color: #dc2626; padding: 1rem; margin-bottom: 1rem; border: 1px solid #fecaca; border-radius: 0.5rem;"></div>
+            <form id="registerForm" method="POST" action="/volunteer">
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" name="firstname" id="firstname" placeholder="First name" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" name="lastname" id="lastname" placeholder="Last name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" name="phone" id="phone" placeholder="Phone" required>
+                </div>
+                <button type="submit" class="btn">Register Volunteer</button>
+            </form>
+            <a href="/dashboard" class="btn btn-secondary" style="margin-top: 1rem; display: inline-block;">Back to Dashboard</a>
+        </div>
+    </main>
+
+    <script>
+        const form = document.getElementById('registerForm');
+        const errorMsg = document.getElementById('errorMsg');
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            errorMsg.style.display = 'none';
+            
+            try {
+                const response = await fetch('/volunteer', {
+                    method: 'POST',
+                    body: new URLSearchParams(formData)
+                });
+                
+                if (response.ok) {
+                    window.location.href = '/dashboard';
+                } else {
+                    errorMsg.textContent = await response.text();
+                    errorMsg.style.display = 'block';
+                    errorMsg.scrollIntoView({ behavior: 'smooth' });
+                }
+            } catch (err) {
+                errorMsg.textContent = 'Network error: ' + err.message;
+                errorMsg.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
+

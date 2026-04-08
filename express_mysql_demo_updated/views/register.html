@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - VolunteerHub</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main class="container">
+        <div class="card">
+            <h1>Create Account</h1>
+            
+            <script>
+                // Error display from URL param
+                const urlParams = new URLSearchParams(window.location.search);
+                const error = urlParams.get('error');
+                if (error) {
+                    let msg = 'Unknown error';
+                    const msgs = {
+                        'usernameExists': 'Username already exists',
+                        'shortPassword': 'Password too short (min 6 chars)',
+                        'passMismatch': 'Passwords do not match',
+                        'missingFields': 'All fields required',
+                        'invalidRole': 'Invalid role',
+                        'failed': 'Registration failed'
+                    };
+                    msg = msgs[error] || msg;
+                    
+                    const alertDiv = document.createElement('div');
+                    alertDiv.className = 'alert alert-error';
+                    alertDiv.textContent = msg;
+                    document.querySelector('.card').appendChild(alertDiv);
+                }
+            </script>
+            
+            <form method="POST" action="/register">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" minlength="6" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" name="confirmPassword" id="confirmPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select name="role" id="role" required>
+                        <option value="">Select Role</option>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Register</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;"><a href="/login" style="color: #667eea;">Have account? Login</a></p>
+        </div>
+    </main>
+</body>
+</html>
+
